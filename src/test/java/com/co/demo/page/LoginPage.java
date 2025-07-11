@@ -16,9 +16,4 @@ public class LoginPage extends PageObject {
     public static final Target LOGIN_BUTTON = Target.the("login button")
             .locatedBy("#LoginPanel0_LoginButton");
 
-    public static final Target NORTHWIND_MENU = Target.the("Northwind menu")
-            .locatedBy("a[href*='Northwind']");
-
-    public static final Target CLIENTES_MENU = Target.the("Clientes menu")
-            .locatedBy("a[href*='Customer']");
 }

@@ -6,9 +6,9 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
-        features = "src/test/resources/features/openweb.feature",
+        features = "src/test/resources/feature/openweb.feature",
         glue = "com.co.demo.stepdefinitions",
-        snippets = CucumberOptions.SnippetType.CAMELCASE
+        tags = "@mercy"
 )
 public class RunnerOpenWeb {
 }

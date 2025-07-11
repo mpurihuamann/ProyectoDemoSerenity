@@ -1,4 +1,4 @@
-
+@mercy
 Feature: Open Web example
 
   Scenario: Navegar en Serenity Demo y ver clientes

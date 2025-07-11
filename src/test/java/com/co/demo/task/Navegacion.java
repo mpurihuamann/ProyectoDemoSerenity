@@ -7,7 +7,7 @@ import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 import com.co.demo.page.HomePage;
 
-public class navegacion implements Task {
+public class Navegacion implements Task {
 
     @Override
     public <T extends net.serenitybdd.screenplay.Actor> void performAs(T actor) {
@@ -17,7 +17,7 @@ public class navegacion implements Task {
         );
     }
 
-    public static navegacion navigate() {
-        return instrumented(navegacion.class);
+    public static Navegacion navigate() {
+        return instrumented(Navegacion.class);
     }
 }

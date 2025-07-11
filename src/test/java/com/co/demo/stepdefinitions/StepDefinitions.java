@@ -1,24 +1,50 @@
 package com.co.demo.stepdefinitions;
-
-import io.cucumber.java.en.Given;
-import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.actions.Open;
+import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
+import com.co.demo.page.HomePage;
 import com.co.demo.task.LoginTask;
-import com.co.demo.page.LoginPage;
+import com.co.demo.task.Navegacion;
+
+import io.cucumber.java.Before;
+import io.cucumber.java.es.Dado;
+import io.cucumber.java.es.Cuando;
+import io.cucumber.java.es.Y;
+import io.cucumber.java.es.Entonces;
+
+import net.serenitybdd.screenplay.actors.OnStage;
+import net.serenitybdd.screenplay.actors.OnlineCast;
+
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 
 public class StepDefinitions {
 
-    @Given("I ingreso a la pagina web")
-    public void iIngresoALaPaginaWeb() {
+    @Before
+    public void setStage() {
+        OnStage.setTheStage(new OnlineCast());
+    }
 
-        Actor user = Actor.named("user");
+    @Dado("que ingreso a la pagina web de Serenity")
+    public void queIngresoALaPaginaWebDeSerenity() {
+        OnStage.theActorCalled("Mer").wasAbleTo(
+                LoginTask.withCredentials("admin", "serenity")
+        );
+    }
 
-        user.attemptsTo(
-                Open.browserOn().the(LoginPage.class),
-                LoginTask.withCredentials("admin", "serenity"),
-                Click.on(LoginPage.NORTHWIND_MENU),
-                Click.on(LoginPage.CLIENTES_MENU)
+    @Cuando("hago clic en el enlace {string}")
+    public void hagoClicEnElEnlace(String enlace) {
+        OnStage.theActorInTheSpotlight().attemptsTo(
+                Navegacion.navigate()
+        );
+    }
+
+    @Y("hago clic en la opción {string}")
+    public void hagoClicEnLaOpcion(String opcion) {
+    }
+
+    @Entonces("debería ver la lista de clientes en pantalla")
+    public void deberiaVerLaListaDeClientesEnPantalla() {
+        OnStage.theActorInTheSpotlight().should(
+                seeThat(the(HomePage.LISTA_CLIENTES), isVisible())
         );
     }
 }
