@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '3.9.8'
+}
+
+group 'co.com.demo'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    serenityVersion = '3.9.8'
+    junitVersion = '5.8.2'
+    assertJVersion = '3.22.0'
+    lombokVersion = '1.18.22'
+}
+
+dependencies {
+    // Serenity core y screenplay
+    implementation "net.serenity-bdd:serenity-core:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-screenplay-webdriver:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-screenplay-rest:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-cucumber:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-ensure:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-junit5:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-screenplay:3.9.8"
+
+
+    // Cucumber
+    implementation "io.cucumber:cucumber-java:7.12.1"
+    implementation "io.cucumber:cucumber-junit:7.12.1"
+
+    // JUnit 5
+    implementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    implementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+
+    // AssertJ para aserciones
+    implementation "org.assertj:assertj-core:${assertJVersion}"
+
+    // Lombok (opcional)
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    // Faker (opcional)
+    implementation "com.github.javafaker:javafaker:1.0.2"
+
+    // Logging
+    implementation "ch.qos.logback:logback-classic:1.2.10"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    systemProperties System.getProperties()
+}
